@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import PropTypes from "prop-types";
 //we place style outside of component so that react won't re-render the style
 const containerStyle = {
   display: "flex",
@@ -9,6 +9,18 @@ const containerStyle = {
 const starContainerStyle = {
   display: "flex",
   alignItems: "center",
+};
+
+//set restrictions for the props
+StarRating.propTypes = {
+  maxRating: PropTypes.number,
+  //PropTypes.number.isRequired will require input
+  defaultRating: PropTypes.number,
+  color: PropTypes.string,
+  size: PropTypes.number,
+  message: PropTypes.array,
+  className: PropTypes.string,
+  onSetRating: PropTypes.func,
 };
 
 export default function StarRating({
