@@ -56,11 +56,19 @@ const KEY = "300c144";
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
+  
 
   useEffect(function () {
-    fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=Interstellar`)
-      .then((res) => res.json())
-      .then((data) => console.log(data.Search));
+    //the definition of asyn function
+    async function fetchMovies() {
+      const res = await fetch(
+        `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=Interstellar`
+      );
+      const data = await res.json();
+      setMovies(data.Search);
+    }
+    //calling the function
+    fetchMovies();
   }, []);
 
   return (
