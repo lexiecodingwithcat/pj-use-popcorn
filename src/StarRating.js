@@ -45,7 +45,6 @@ export default function StarRating({
     margin: "0",
     color,
     fontSize: `${size / 1.5}px`,
-    display: "inline-block",
   };
   return (
     <div style={containerStyle} className={className}>
