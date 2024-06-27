@@ -82,13 +82,17 @@ export default function App() {
 
   useEffect(
     function () {
+      //a native web API
+      const controller = new AbortController();
+
       //the definition of asyn function
       async function fetchMovies() {
         try {
           setIsLoading(true);
           setErrMessage("");
           const res = await fetch(
-            `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
           );
 
           if (!res.ok) throw new Error("Something wrong with fetching movies");
@@ -98,7 +102,10 @@ export default function App() {
 
           setMovies(data.Search);
         } catch (err) {
-          setErrMessage(err.message);
+          //if the name of error is AbortError then no need to set the message and show it up
+          if (err.name !== "AbortError") {
+            setErrMessage(err.message);
+          }
         } finally {
           setIsLoading(false);
         }
@@ -112,6 +119,9 @@ export default function App() {
         return;
       }
       fetchMovies();
+      return function () {
+        controller.abort();
+      };
     },
     [query]
   );
@@ -293,6 +303,10 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     function () {
       if (!title) return;
       document.title = `Movie | ${title}`;
+      //clean up function
+      return function () {
+        document.title = "usePopcorn";
+      };
     },
     [title]
   );
