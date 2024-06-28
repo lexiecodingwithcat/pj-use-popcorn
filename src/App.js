@@ -310,6 +310,26 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     },
     [title]
   );
+  // add a keypress event to listen globally
+  //because this is a side effect
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.code === "Escape") {
+          onCloseMovie();
+        }
+      }
+      //listen to the whole document
+      document.addEventListener("keydown", callback);
+      //clean up event listener
+      //otherwise when once movieDetail show up there will be one event listener
+      return function () {
+        //when clean up, must use the exact name of event listener
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [onCloseMovie]
+  );
 
   return (
     <div className="details">
