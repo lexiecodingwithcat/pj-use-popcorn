@@ -118,6 +118,8 @@ export default function App() {
         setIsLoading(false);
         return;
       }
+      //before fetch a new movie, close the current expanded movie detail
+      handleCloseMovie();
       fetchMovies();
       return function () {
         controller.abort();
