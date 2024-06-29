@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 
 const tempMovieData = [
@@ -73,7 +73,11 @@ export default function App() {
   //function that can add watched movie to the watched movie array
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
-    // console.log(watched)
+    // store the watched movie list in the local storage
+    // which is a function available in all browsers
+    // it can only viewed by current URL
+    localStorage.setItem("watched", JSON.stringify([...watched, movie]));
+    // cuz the watched here is stale
   }
   function handleDeleteWatched(id) {
     //movie that equal to the id will be deleted
