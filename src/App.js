@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 
 const tempMovieData = [
@@ -201,6 +201,26 @@ function Logo() {
 }
 //stateful component
 function Search({ query, setQuery }) {
+  //1. create a ref
+  const inputEl = useRef(null);
+
+  useEffect(function () {
+    //we place it into callback function so that we can clean it later
+    function callback(e) {
+      //we don't want to set the search bar empty when it is alredy focused
+      if(document.activeElement === inputEl.current) return;
+      if (e.code === "Enter") {
+        //inputEl.current is the DOM
+        inputEl.current.focus();
+        setQuery("");
+      }
+    }
+    document.addEventListener("keydown", callback);
+    return () => document.removeEventListener("keydown", callback);
+    //dependency array: 1. props and states that will be updated
+    //2.  the outside function or variable using in useEffect
+  }, [setQuery]);
+
   return (
     <input
       className="search"
@@ -208,6 +228,8 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      //2. connect ref to the element
+      ref={inputEl}
     />
   );
 }
