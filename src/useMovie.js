@@ -53,8 +53,9 @@ export function useMovies(query, callback) {
   useEffect(
     function () {
         //if the callback function exist, then call it
+        //clsoe current movie detail before fetching a new movie
         callback?.();
-      //a native web API
+      //a native web API for useEffect clean up
       const controller = new AbortController();
 
       //the definition of asyn function
