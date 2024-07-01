@@ -1,34 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovie";
-
-
-
-
+import { useLocalStorage } from "./useLocalStorage";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-
-  const KEY = "300c144";
+const KEY = "300c144";
 //lay out component
 export default function App() {
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
 
   //using custom hook
-  //destructure the return value 
-  const{movies, isLoading, errMessage}=useMovies(query, handleCloseMovie);
-  
-  //the initial state can be a callback function
-  //we can use this callback function to read the data back from local storage
-  //the function should be a pure function without any argument
-  const [watched, setWatched] = useState(function () {
-    const storedValue = localStorage.getItem("watched");
-    // because we store the data in JSON string, we need to convert it back
-    if (!storedValue) return [];
-    return JSON.parse(storedValue);
-  });
+  //destructure the return value
+  const { movies, isLoading, errMessage } = useMovies(query, handleCloseMovie);
+
+  const [watched, setWatched] = useLocalStorage([],"watched");
+
   // const [watched, setWatched] = useState([]);
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (selectedId === id ? null : id));
@@ -51,16 +40,6 @@ export default function App() {
     //movie that equal to the id will be deleted
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
-  //2. useEffect to store watched movie lists
-  //run to show the watched list in APP initial render and every time watched movies updates
-  useEffect(
-    function () {
-      //because it will run after the state has been updated
-      //so instead of using [...watched, movie] we can use watched directly
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
 
   //read the data back as soon as the component mounts
 
