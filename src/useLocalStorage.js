@@ -10,7 +10,7 @@ export function useLocalStorage(initialState, key) {
     const storedValue = localStorage.getItem(key);
 // if it is null at first, react will stop it for mapping
 //so we need to add a conditional statement
-    if (!storedValue) return [];
+    if (!storedValue) return initialState;
     // because we store the data in JSON string, we need to convert it back
     return JSON.parse(storedValue);
   });
