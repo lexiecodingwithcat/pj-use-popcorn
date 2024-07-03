@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/learn-by-coding-use-popcorn/static/css/main.8add22f9.css",
+    "main.js": "/learn-by-coding-use-popcorn/static/js/main.16775793.js",
+    "index.html": "/learn-by-coding-use-popcorn/index.html",
+    "main.8add22f9.css.map": "/learn-by-coding-use-popcorn/static/css/main.8add22f9.css.map",
+    "main.16775793.js.map": "/learn-by-coding-use-popcorn/static/js/main.16775793.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8add22f9.css",
+    "static/js/main.16775793.js"
+  ]
+}
