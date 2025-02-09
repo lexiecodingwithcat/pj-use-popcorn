@@ -44,7 +44,10 @@ const tempWatchedData = [
     userRating: 9,
   },
 ];
-const KEY = "300c144";
+// const KEY = "300c144";
+
+const KEY = process.env.REACT_APP_OMDB_API_KEY;
+console.log(KEY);
 
 export function useMovies(query, callback) {
   const [movies, setMovies] = useState(tempMovieData);
