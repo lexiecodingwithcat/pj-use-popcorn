@@ -1,6 +1,6 @@
 # usePopcoren 🍿
 
-Welcome to the Movie usePopcorn! 
+Welcome to the usePopcorn! 
 This application allows users to search for movies, rate them, and manage their own movie lists. With this tool, you can keep track of the movies you've watched and calculate your average rating.
 
 ## Features
