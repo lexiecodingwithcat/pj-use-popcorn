@@ -7,7 +7,8 @@ import { useKey } from "./useKey";
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = "300c144";
+// const KEY = "300c144";
+const KEY = process.env.REACT_APP_OMDB_API_KEY;
 //lay out component
 export default function App() {
   const [query, setQuery] = useState("");
@@ -161,22 +162,6 @@ function Box({ children }) {
     </div>
   );
 }
-
-/*function WatchedBox({ children }) {
-  const [isOpen2, setIsOpen2] = useState(true);
-
-  return (
-    <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen2((open) => !open)}
-      >
-        {isOpen2 ? "–" : "+"}
-      </button>
-      {isOpen2 && children}
-    </div>
-  );
-}*/
 
 function MovieList({ movies, onSelectMovie }) {
   return (
